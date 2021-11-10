@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.serratec.backend.projetoServiceDto.UsuarioDto;
 import com.serratec.backend.projetoServiceDto.domain.Usuario;
 import com.serratec.backend.projetoServiceDto.exception.EmailException;
 import com.serratec.backend.projetoServiceDto.service.UsuarioService;
@@ -26,8 +27,8 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 	
 	@GetMapping("/todos")
-	public ResponseEntity<List<Usuario>> listar(){
-		List<Usuario> usuarios = usuarioService.findAll();
+	public ResponseEntity<List<UsuarioDto>> listar(){
+		List<UsuarioDto> usuarios = usuarioService.findAll();
 		return ResponseEntity.ok(usuarios);
 	}
 	
