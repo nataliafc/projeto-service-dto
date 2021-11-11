@@ -29,11 +29,11 @@ public class UsuarioService {
 		
 		// os dois-pontos são um operador foreach
 		// para cada usuario em usuarios(que é uma instância da lista de usuários),
-		// crie uma nova instância de uDTO, e adicione em uDTO. depois, retorne uDTO
+		// crie uma nova instância de usuarioDTO, e adicione em usuarioDTO. depois, retorne usuarioDTO
 		
 		for(Usuario usuario : usuarios) {
 			UsuarioDto usuarioDto = new UsuarioDto(usuario);
-			usuariosDto.add(usuarioDto);;
+			usuariosDto.add(usuarioDto);
 		}
 		
 		return usuariosDto;
