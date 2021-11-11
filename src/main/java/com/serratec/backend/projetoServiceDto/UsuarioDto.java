@@ -41,7 +41,7 @@ public class UsuarioDto {
 	}
 	
 	// essa classe vai se sobrepor à classe Usuario, e vai entregar apenas os atributos descritos aqui;
-	// o GET vai entregar id, nome e email, mas o post também vai pedir a tenha
-	// portanto, no método POST será usada a classe Usuario, e no método GET será usada a classe UsuarioDto
+	// o GET vai entregar id, nome e email no front através do UsuarioDto
+	// o POST será usado a classe UsuarioInserirDto pra inserir nome, email e senha
 
 }

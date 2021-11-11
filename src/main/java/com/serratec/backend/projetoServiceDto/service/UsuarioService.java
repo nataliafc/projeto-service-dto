@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.serratec.backend.projetoServiceDto.UsuarioDto;
+import com.serratec.backend.projetoServiceDto.UsuarioInserirDto;
 import com.serratec.backend.projetoServiceDto.domain.Usuario;
 import com.serratec.backend.projetoServiceDto.exception.EmailException;
 import com.serratec.backend.projetoServiceDto.repository.UsuarioRepository;
@@ -42,13 +43,18 @@ public class UsuarioService {
 		return usuarioRepository.findById(id);
 	}
 	
-	public Usuario insert(Usuario user) throws EmailException {
-		Usuario usuario = usuarioRepository.findByEmail(user.getEmail());
-		if(usuario != null) {
+	public UsuarioDto inserir(UsuarioInserirDto usuarioInserirDto) throws EmailException {
+		
+		if (usuarioRepository.findByEmail(usuarioInserirDto.getEmail()) != null) {
 			throw new EmailException("E-mail existente.");
 		}
 		
-		user.setSenha(passwordEncoder.encode(user.getSenha()));
-		return usuarioRepository.save(user);
+		Usuario usuario = new Usuario();
+		usuario.setNome(usuarioInserirDto.getNome());
+		usuario.setEmail(usuarioInserirDto.getEmail());
+		usuario.setSenha(passwordEncoder.encode(usuarioInserirDto.getSenha()));
+		usuario = usuarioRepository.save(usuario);
+		
+		return new UsuarioDto(usuario);
 	}
 }

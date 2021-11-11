@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.serratec.backend.projetoServiceDto.UsuarioDto;
+import com.serratec.backend.projetoServiceDto.UsuarioInserirDto;
 import com.serratec.backend.projetoServiceDto.domain.Usuario;
 import com.serratec.backend.projetoServiceDto.exception.EmailException;
 import com.serratec.backend.projetoServiceDto.service.UsuarioService;
@@ -39,13 +40,27 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/inserir")
+	
 	//Object pq vai ter vários tipos de retorno
-	public ResponseEntity<Object> criar(@RequestBody Usuario usuario) {
+	
+	public ResponseEntity<Object> inserir(@RequestBody UsuarioInserirDto usuarioInserirDto) {
 		try {
-			usuario = usuarioService.insert(usuario);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
+			UsuarioDto usuarioDto = usuarioService.inserir(usuarioInserirDto);
 			
-		return ResponseEntity.created(uri).body(usuario);
+			// criador de URI:
+			// .do pedido atual
+			// .caminho: númeero do id
+			// .criar e expandir o númereo do id
+			// .para a URI
+			
+			
+			URI uri = ServletUriComponentsBuilder
+					.fromCurrentRequest()
+					.path("/{id}")
+					.buildAndExpand(usuarioDto.getId())
+					.toUri();
+			
+		return ResponseEntity.created(uri).body(usuarioDto);
 		
 		} catch (EmailException ex) {
 			return ResponseEntity.unprocessableEntity().body(ex.getMessage());
